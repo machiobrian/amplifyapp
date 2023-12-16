@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import { API } from "aws-amplify/api";
+import { API } from "aws-amplify";
 import {
   Button,
   Flex,
@@ -9,15 +9,15 @@ import {
   Text,
   TextField,
   View,
-  Card,
-  Image,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from "./graphql/mutations";
-import logo from './logo.svg';
+import {
+  createNote as createNoteMutation,
+  deleteNote as deleteNoteMutation,
+} from "./graphql/mutations";
 
-function App({ signOut }) {
+const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -56,10 +56,7 @@ function App({ signOut }) {
 
   return (
     <View className="App">
-      <Card>
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Heading level={1}>We now have Authentication Service</Heading>
-      </Card>
+      <Heading level={1}>My Notes App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
@@ -105,6 +102,6 @@ function App({ signOut }) {
       <Button onClick={signOut}>Sign Out</Button>
     </View>
   );
-}
+};
 
 export default withAuthenticator(App);
